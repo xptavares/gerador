@@ -9,6 +9,20 @@
 	template="/template/layout.xhtml">
 	<ui:define name="content">
 
+
+		<ul class="breadcrumb">
+			<li><a href="#{request.contextPath}/pages/home.html"><i
+					class="icon-home"></i></a><span class="divider">/</span></li>
+			<li>
+				<a href="#{request.contextPath}/pages/conhecimento.html">#{messages['menu.conhecimento']}</a>
+				<span class="divider">/</span>
+			</li>
+			<li><a
+				href="#{request.contextPath}/pages/<%= name %>/<%= name %>-listagem.html">#{i18n['menu.<%= name %>']}</a><span
+				class="divider">/</span></li>
+			<li class="active">#{messages[<%= name %>MB.breadcrumb]}</li>
+		</ul>
+		
 		<h3>#{messages[<%= name %>MB.titulo]}</h3>
 
 		<br />
@@ -16,7 +30,7 @@
 			
 			<div class="control-group">
 				<div class="controls">
-					<label class="control-label" for="nome">#{<%= name %>Messages['<%= name %>.label.<%= name %>']}
+					<label class="control-label" for="nome">#{messages['<%= name %>.label.<%= name %>']}
 						<abbr class="req" title="obrigatório">*</abbr>
 					</label>
 					<h:inputText value="#{<%= name %>MB.<%= name %>.nome}" id="nome"
@@ -29,7 +43,7 @@
 			
 			<div class="control-group">
 				<div class="controls">
-					<label class="control-label" for="descricao">#{<%= name %>Messages['<%= name %>.label.descricao']}</label>
+					<label class="control-label" for="descricao">#{messages['<%= name %>.label.descricao']}</label>
 					<h:inputTextarea value="#{<%= name %>MB.<%= name %>.descricao}"
 						class="input_text" id="descricao" rows="5" />
 					<div>

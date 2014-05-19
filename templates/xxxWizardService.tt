@@ -49,5 +49,19 @@ public class <%= name.capitalize %>Service {
         <%= name.capitalize %> result = <%= name %>Business.salvar((<%= name.capitalize %>) Translators.toEntity(<%= name %>));
         return (<%= name.capitalize %>DTO) Translators.toDto(result);
     }
+
+    /**
+     * Método responsável por validar o passo 1 do {@link <%= name.capitalize %>}.
+     * 
+     * @param <%= name %>DTO o {@link <%= name.capitalize %>} a ser validado
+     * @throws ValidationException caso ocorra algum erro de validação
+     */
+    public void validaStep1(<%= name.capitalize %>DTO <%= name %>DTO) throws ValidationException {
+        <%= name.capitalize %>Translator tradutor = new <%= name.capitalize %>Translator();
+
+        <%= name.capitalize %> <%= name %> = tradutor.toEntity(<%= name %>DTO);
+
+        <%= name %>Business.validaStep1(<%= name %>);
+    }
     
 }

@@ -2,6 +2,8 @@ package br.com.aliz.<%= name %>.mb;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Collection;
+import java.util.Collections;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -9,9 +11,11 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.event.FlowEvent;
+
 import br.com.aliz.organizacao.dto.<%= name.capitalize %>DTO;
 import br.com.aliz.organizacao.service.<%= name.capitalize %>Service;
-import br.com.aliz.util.mb.AbstractMB;
+import br.com.aliz.util.mb.AbstractWizardMB;
 import br.com.jexperts.exception.ValidationException;
 import br.com.jexperts.jsf.util.FacesUtils;
 import br.com.jexperts.message.Message;
@@ -21,14 +25,19 @@ import br.com.jexperts.message.Message;
  */
 @ViewScoped
 @ManagedBean
-public class <%= name.capitalize %>MB extends AbstractMB {
+public class <%= name.capitalize %>MB extends AbstractWizardMB {
 
     private static final long serialVersionUID = 1L;
     
     @ManagedProperty(value = "#{<%= name %>Service}")
     private <%= name.capitalize %>Service <%= name %>Service;
 
-    private <%= name.capitalize %>DTO <%= name %>; 
+    private <%= name.capitalize %>DTO <%= name %>;
+
+    private boolean edicao;
+
+    private static final String STEP_1 = "step1";
+    private static final String STEP_2 = "step2";
     
     
     /**
@@ -38,7 +47,10 @@ public class <%= name.capitalize %>MB extends AbstractMB {
     public void init() {
         Long id<%= name.capitalize %> = FacesUtils.getLongRequestParameter("id<%= name.capitalize %>");
         
-        if(id<%= name.capitalize %> != null) {
+        edicao = id<%= name.capitalize %> != null;
+
+        if(edicao) {
+            setValidationBehavior(ValidationBehavior.VALIDATE_ALWAYS);
             <%= name %> = <%= name %>Service.get<%= name.capitalize %>(id<%= name.capitalize %>);
         } else {
             <%= name %> = new <%= name.capitalize %>DTO();
@@ -87,6 +99,32 @@ public class <%= name.capitalize %>MB extends AbstractMB {
 
     public void set<%= name.capitalize %>(<%= name.capitalize %>DTO <%= name %>) {
         this.<%= name %> = <%= name %>;
+    }
+
+    @Override
+    protected Collection<Message> validateFlow(FlowEvent event) {
+        try {
+            switch (event.getOldStep()) {
+            case STEP_1:
+                <%= name %>Service.validaStep1(<%= name %>);
+                break;
+            case STEP_2:
+                break;
+            default:
+                break;
+            }
+        } catch (ValidationException e) {
+            return e.getValidations();
+        }
+        return Collections.emptyList();
+    }
+
+    public boolean isApresentarBotaoFinalizar() {
+        return isDisplayingLastStep() || isEdicao();
+    }
+
+    public boolean isEdicao() {
+        return edicao;
     }
 
 }

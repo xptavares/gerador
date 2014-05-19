@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:j="http://www.jexperts.com.br/jsf"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="/template/layout.xhtml">
+	<ui:define name="content">
+
+
+		<ul class="breadcrumb">
+			<li><a href="#{request.contextPath}/pages/home.html"><i
+					class="icon-home"></i></a><span class="divider">/</span></li>
+			<li>
+				<a href="#{request.contextPath}/pages/conhecimento.html">#{messages['menu.conhecimento']}</a>
+				<span class="divider">/</span>
+			</li>
+			<li><a
+				href="#{request.contextPath}/pages/<%= name %>/<%= name %>-listagem.html">#{i18n['menu.<%= name %>']}</a><span
+				class="divider">/</span></li>
+			<li class="active">#{messages[<%= name %>MB.breadcrumb]}</li>
+		</ul>
+		
+		<h3>#{messages[<%= name %>MB.titulo]}</h3>
+
+		<br />
+		<h:form class="form-horizontal" id="formCadastro<%= name.capitalize %>">
+
+			<j:wizard id="wizard" tabClickable="#{<%= name %>MB.edicao}"
+				flowListener="#{<%= name %>MB.onFlow}"
+				update="formCadastro<%= name.capitalize %>:btnSalvar"
+				backId="formCadastro<%= name.capitalize %>:voltar"
+				nextId="formCadastro<%= name.capitalize %>:avancar">
+
+				<p:tab id="step1"
+					title="#{messages['<%= name %>.label.wizard.step1']}">
+					<p:panel>
+						
+						<div class="control-group">
+							<div class="controls">
+								<label class="control-label" for="nome">#{messages['<%= name %>.label.<%= name %>']}
+									<abbr class="req" title="obrigatório">*</abbr>
+								</label>
+								<h:inputText value="#{<%= name %>MB.<%= name %>.nome}" id="nome"
+									class="input_text" />
+								<div class="">
+									<p:message for="nome" />
+								</div>
+							</div>
+						</div>	
+						
+						<div class="control-group">
+							
+							<div class="controls">
+								<label class="control-label" for="descricao">#{messages['<%= name %>.label.descricao']}</label>
+								<h:inputTextarea value="#{<%= name %>MB.<%= name %>.descricao}"
+									class="input_text" id="descricao" rows="5" />
+								<div>
+									<p:message for="descricao" />
+								</div>
+							</div>
+						</div>
+
+					</p:panel>
+
+				</p:tab>
+
+				<p:tab id="step2"
+					title="#{messages['<%= name %>.label.wizard.step2']}">
+					<p:panel>
+
+
+					</p:panel>
+				</p:tab>
+
+
+			</j:wizard>
+
+
+			<p:commandButton id="voltar" value="#{messages['voltar']}"
+				icon="ui-icon-arrowthick-1-w" style="float:left" />
+			<p:commandButton id="avancar" value="#{messages['avancar']}"
+				icon="ui-icon-arrowthick-1-e" style="float:right"
+				styleClass="btn-success" />
+
+			<h:panelGroup id="btnSalvar">
+				<p:commandButton rendered="#{<%= name %>MB.apresentarBotaoFinalizar}"
+					style="float:right;" id="btnFinalizarCadastro<%= name.capitalize %>"
+					value="#{<%= name %>Messages['<%= name %>.label.finalizarCadastro<%= name.capitalize %>']}"
+					styleClass="btn-success" action="#{<%= name %>MB.salvar()}"
+					update="formCadastro<%= name.capitalize %>" ajax="true"
+					onclick="if (#{<%= name %>MB.mudouPacote()}) { if (!confirm('#{<%= name %>MB.getMensagemTrocaPacote()}')){return false;} }" />
+			</h:panelGroup>
+
+			<p:commandButton value="#{i18n['cancelar']}" id="cancelar"
+				styleClass="btn-cancelar" style="float:right"
+				onclick="window.open('#{request.contextPath}/pages/<%= name %>/<%= name %>-listagem.html', '_self')" />
+
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>

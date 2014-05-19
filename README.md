@@ -8,4 +8,8 @@ Installation
 
 To Run
 ------------
-	thor jexperts nome
+	thor gerador nome
+
+Parametros
+------------
+    --wizard=true

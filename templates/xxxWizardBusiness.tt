@@ -103,13 +103,36 @@ public class <%= name.capitalize %>Business {
     private void validar(<%= name.capitalize %> <%= name %>) throws ValidationException {
         List<Message> validations = new ArrayList<>();
         
-        if (StringUtils.isEmpty(<%= name %>.getNome())) {
-            validations.add(new Validation("<%= name %>.mensagem.nome.obrigatorio"));
-        }
+        validaStep1(<%= name %>, validations);
          
         if (validations.size() > 0) {
             throw new ValidationException(validations);
         }
         
+    }
+
+    /**
+     * Método responsável por validar o passo 1 do {@link <%= name.capitalize %>}.
+     * 
+     * @param <%= name %> o {@link <%= name.capitalize %>} a ser validado
+     * @throws ValidationException caso ocorra algum erro de validação
+     */
+    public void validaStep1(<%= name.capitalize %> <%= name %>) throws ValidationException {
+
+        List<Message> validations = new ArrayList<>();
+
+        validaStep1(<%= name %>, validations);
+
+        if (!validations.isEmpty()) {
+            throw new ValidationException(validations);
+        }
+    }
+
+    private void validaStep1(<%= name.capitalize %> <%= name %>, List<Message> validations) {
+
+        if (StringUtils.isEmpty(<%= name %>.getNome())) {
+            validations.add(new Validation("<%= name %>.mensagem.nome.obrigatorio"));
+        }
+
     }
 }
