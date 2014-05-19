@@ -1,0 +1,22 @@
+package br.com.aliz.<%= name %>.mb;
+
+import java.io.Serializable;
+
+import br.com.jexperts.validator.Validators;
+
+/**
+ * Validador de <%= name %>.
+ */
+public final class <%= name.capitalize %>Validator implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    
+    
+    /**
+     * Registra as mensagens de validação.
+     */
+    public static void init() {
+        Validators.put("<%= name %>.mensagem.nome.obrigatorio", "formCadastro<%= name.capitalize %>:nome");
+    }
+
+}

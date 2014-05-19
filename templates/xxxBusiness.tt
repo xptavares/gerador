@@ -1,0 +1,78 @@
+package br.com.aliz.organizacao.business;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Component;
+
+import br.com.aliz.organizacao.<%= name.capitalize %>;
+import br.com.aliz.organizacao.dto.<%= name.capitalize %>FiltroDTO;
+import br.com.jexperts.control.annotation.RQ;
+import br.com.jexperts.exception.ValidationException;
+import br.com.jexperts.util.StringUtils;
+
+@Component
+public class <%= name.capitalize %>Business {
+    
+    @PersistenceContext
+    private EntityManager em;
+    
+    @PreAuthorize("hasPermission(null, '<%= name.upcase %>.VISUALIZAR')")
+    public Long countGet<%= name.capitalize %>s(<%= name.capitalize %>FiltroDTO filtro) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+        Root<<%= name.capitalize %>> from = cq.from(<%= name.capitalize %>.class);
+
+        aplicaFiltroGet<%= name.capitalize %>s(cb, cq, from, filtro);
+
+        Expression<Long> count = cb.count(from);
+        cq.select(count);
+
+        return em.createQuery(cq).getSingleResult();
+    }
+    
+    @PreAuthorize("hasPermission(null, '<%= name.upcase %>.VISUALIZAR')")
+    public List<<%= name.capitalize %>> get<%= name.capitalize %>s(<%= name.capitalize %>FiltroDTO filtro) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+
+        CriteriaQuery<<%= name.capitalize %>> criteria = cb.createQuery(<%= name.capitalize %>.class);
+        Root<<%= name.capitalize %>> from = criteria.from(<%= name.capitalize %>.class);
+
+        criteria.select(from);
+
+        aplicaFiltroGet<%= name.capitalize %>s(cb, criteria, from, filtro);
+
+        criteria.orderBy(cb.asc(from.get("nome")));
+
+        TypedQuery<<%= name.capitalize %>> createQuery = em.createQuery(criteria);
+        createQuery.setHint("org.hibernate.cacheable", true);
+        return createQuery.setFirstResult(filtro.getOffset()).setMaxResults(filtro.getLimit()).getResultList();
+    }
+    
+    private void aplicaFiltroGet<%= name.capitalize %>s(CriteriaBuilder cb, CriteriaQuery<?> criteria, Root<?> from, <%= name.capitalize %>FiltroDTO filtro) {
+        Predicate and = cb.conjunction();
+
+        if (!StringUtils.isEmpty(filtro.getNome())) {
+            Predicate titulo = cb.like(cb.upper(from.<String> get("nome")), "%" + filtro.getNome().toUpperCase() + "%");
+            and.getExpressions().add(titulo);
+        }
+
+        criteria.where(and);
+    }
+    
+    @RQ("ALIZ_002_2014:RQ0036")
+    @PreAuthorize("hasPermission(null, '<%= name.upcase %>.REMOVER')")
+    public void remover(Long id<%= name.capitalize %>) throws ValidationException {
+        <%= name.capitalize %> <%= name %> = em.find(<%= name.capitalize %>.class, id<%= name.capitalize %>);
+        em.remove(<%= name %>);
+    }
+}

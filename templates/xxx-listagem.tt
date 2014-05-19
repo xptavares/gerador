@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:j="http://www.jexperts.com.br/jsf"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="/template/layout.xhtml">
+	
+	<ui:define name="content">
+	
+	<ul class="breadcrumb">
+		<li><a href="#{request.contextPath}/pages/home.html"> <i
+				class="icon-home"></i></a><span class="divider">/</span></li>
+		<li>
+			<a href="#{request.contextPath}/pages/conhecimento.html">#{messages['menu.conhecimento']}</a>
+			<span class="divider">/</span>
+		</li>
+		<li class="active">#{msg['menu.<%= name %>']}</li>
+	</ul>
+	
+	<div class="row margin-left-zero">
+
+			<div class="row margin-left-zero">
+				<div class="pull-right">
+					<p:commandButton value="#{messages['lista.filtros']}" styleClass=""
+						icon="ui-icon-filter" update="modalFiltro<%= name.capitalize %>"
+						oncomplete="filtro<%= name.capitalize %>s.show();" id="btnFiltro" />
+					<p:commandButton id="btnNovo"
+						value="#{messages['novo']}"
+						styleClass="btn-success" icon="ui-icon-plusthick"
+						onclick="window.open('#{request.contextPath}/pages/<%= name %>/<%= name %>-cadastro.html', '_self');" />
+				</div>
+			</div>
+
+			<div class="row margin-left-zero" style="margin-top: 10px;">
+				<div class="pull-left">
+					<h3>#{messages['<%= name %>.label.<%= name %>s']}</h3>
+				</div>
+				<div class="pull-right">
+					<a href="#" class="btn-help" title="Dúvidas?"></a>
+				</div>
+			</div>
+
+			<div class="row margin-left-zero">
+				<div class="pull-left">
+					<p:outputPanel id="panelFiltros">
+						<div class="label-filtros-utilizados">
+							<h:outputText value="#{messages['label.filtrosUtilizados']}: " />
+							<p:spacer width="1" />
+						</div>
+						<h:outputText value="#{messages['label.nenhumFiltroUtilizado']}"
+							styleClass="msg-nenhum-item"
+							rendered="#{<%= name %>ListagemMB.filtro.isEmpty()}" />
+						<p:dataList type="definition" styleClass="listaFiltros"
+							rendered="#{not <%= name %>ListagemMB.filtro.isEmpty()}" itemType="none"
+							value="#{<%= name %>ListagemMB.filtro}" var="filtro">
+
+							<h:panelGrid columns="3"
+								rendered="#{not empty <%= name %>ListagemMB.filtro.nome}">
+								<h:outputText value="#{messages['<%= name %>.label.<%= name %>']}:" />
+								<h:outputText value=" #{filtro.nome}" />
+								<p:commandLink
+									update=":formListagem:datatable<%= name.capitalize %>s, :panelFiltros"
+									onsuccess="wdgtDatatable<%= name.capitalize %>s.paginator.setPage(0);"
+									immediate="true" styleClass="ui-icon ui-icon-close close"
+									actionListener="#{<%= name %>ListagemMB.filtro.setNull('nome')}" />
+							</h:panelGrid>
+
+
+						</p:dataList>
+					</p:outputPanel>
+				</div>
+			</div>
+		</div>
+
+		<br />
+		
+		<h:form id="formListagem">
+		
+			<p:dataTable id="datatable<%= name.capitalize %>s" styleClass="datatable"
+				rowKey="#{<%= name %>}"
+				rowsPerPageTemplate="#{<%= name %>ListagemMB.getRowsPerPageTemplate(<%= name %>ListagemMB.<%= name %>s)}"
+				value="#{<%= name %>ListagemMB.<%= name %>s}" var="<%= name %>" paginator="true"
+				rows="10" widgetVar="wdgtDatatable<%= name.capitalize %>s"
+				paginatorTemplate="{CurrentPageReport} {PreviousPageLink} {PageLinks} {NextPageLink} {RowsPerPageDropdown}"
+				paginatorPosition="bottom"
+				emptyMessage="#{i18n['mensagem.nenhumRegistroEncontrado']}"
+				currentPageReportTemplate="{startRecord} - {endRecord} #{msg['label.de']} #{<%= name %>ListagemMB.<%= name %>s.rowCount}"
+				lazy="true">
+
+				<p:column headerText="#{messages['<%= name %>.label.<%= name %>']}">
+					<h:outputText value="#{<%= name %>.nome}" />
+				</p:column>
+
+				<p:column headerText="" style="width:18px" >
+
+					<p:menuButton id="acoes" styleClass="acoes"
+						value="#{i18n['acoes']}">
+						<p:menuitem id="editar" value="#{pacoteMessages['label.editar']}"
+							onclick="window.open('#{request.contextPath}/pages/<%= name %>/<%= name %>-cadastro.html?id<%= name.capitalize %>=#{<%= name %>.id}', '_self');" />
+						<p:menuitem id="remover"
+							value="#{messages['remover']}"
+							action="#{<%= name %>ListagemMB.remover(<%= name %>)}" ajax="true"
+							update="datatable<%= name.capitalize %>s" 
+							onsuccess="wdgtDatatable<%= name.capitalize %>s.paginator.setPage(0);" />
+					</p:menuButton>
+
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+		<ui:include src="<%= name %>-filtro.xhtml" />
+	</ui:define>
+</ui:composition>

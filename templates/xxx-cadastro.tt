@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:j="http://www.jexperts.com.br/jsf"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="/template/layout.xhtml">
+	<ui:define name="content">
+
+		<h3>#{messages[<%= name %>MB.titulo]}</h3>
+
+		<br />
+		<h:form id="formCadastro<%= name.capitalize %>">
+			
+			<div class="control-group">
+				<div class="controls">
+					<label class="control-label" for="nome">#{<%= name %>Messages['<%= name %>.label.<%= name %>']}
+						<abbr class="req" title="obrigatório">*</abbr>
+					</label>
+					<h:inputText value="#{<%= name %>MB.<%= name %>.nome}" id="nome"
+						class="input_text" />
+					<div class="">
+						<p:message for="nome" />
+					</div>
+				</div>
+			</div>	
+			
+			<div class="control-group">
+				<div class="controls">
+					<label class="control-label" for="descricao">#{<%= name %>Messages['<%= name %>.label.descricao']}</label>
+					<h:inputTextarea value="#{<%= name %>MB.<%= name %>.descricao}"
+						class="input_text" id="descricao" rows="5" />
+					<div>
+						<p:message for="descricao" />
+					</div>
+				</div>
+			</div>
+
+			<h:panelGroup id="btnSalvar">
+				<p:commandButton
+					style="float:right;" id="salvar"
+					value="#{i18n['salvar']}"
+					styleClass="btn-success" action="#{<%= name %>MB.salvar()}"
+					update="formCadastro<%= name.capitalize %>" ajax="true" />
+			</h:panelGroup>
+
+			<p:commandButton value="#{i18n['cancelar']}" id="cancelar"
+				styleClass="btn-cancelar" style="float:right"
+				onclick="window.open('#{request.contextPath}/pages/<%= name %>/<%= name %>-listagem.html', '_self')" />
+
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,98 @@
+package br.com.aliz.<%= name %>.mb;
+
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
+
+import br.com.aliz.organizacao.dto.<%= name.capitalize %>DTO;
+import br.com.aliz.organizacao.dto.<%= name.capitalize %>FiltroDTO;
+import br.com.aliz.organizacao.service.<%= name.capitalize %>Service;
+import br.com.aliz.util.datamodel.PageDataModel;
+import br.com.aliz.util.datamodel.PageDataModelListener;
+import br.com.aliz.util.mb.AbstractMB;
+import br.com.jexperts.dto.ResponseObject;
+import br.com.jexperts.exception.ValidationException;
+import br.com.jexperts.message.Message;
+
+/**
+ * MB de listagem de <%= name %>.
+ */
+@ManagedBean
+@ViewScoped
+public class <%= name.capitalize %>ListagemMB extends AbstractMB {
+
+    private static final long serialVersionUID = 1L;
+    
+    private <%= name.capitalize %>FiltroDTO filtro;
+    private PageDataModel<<%= name.capitalize %>DTO> <%= name %>s;
+    
+    @ManagedProperty(value = "#{<%= name %>Service}")
+    private <%= name.capitalize %>Service <%= name %>Service;
+
+    /**
+     * Init do MB
+     */
+    @PostConstruct
+    public void init() {
+        setFiltro(new <%= name.capitalize %>FiltroDTO());
+        filtrar();
+    }
+    
+    /**
+     * Método responsável por filtrar a tabela de clientes.
+     */
+    public void filtrar() {
+        set<%= name.capitalize %>s(new PageDataModel<>(new PageDataModelListener<<%= name.capitalize %>DTO>() {
+
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public ResponseObject<<%= name.capitalize %>DTO> onPageChange(int offset, int limit) {
+
+                getFiltro().setLimit(limit);
+                getFiltro().setOffset(offset);
+                return get<%= name.capitalize %>Service().get<%= name.capitalize %>s(getFiltro());
+            }
+        }));
+    }
+    
+    /**
+     * Ação de remover <%= name %>.
+     * 
+     * @param <%= name %> O <%= name %>.
+     */
+    public void remover(<%= name.capitalize %>DTO <%= name %>){
+        try {
+            get<%= name.capitalize %>Service().remover(<%= name %>);
+            showMessage(new Message("<%= name %>.mensagem.remover<%= name.capitalize %>Sucesso"));
+        } catch (ValidationException e) {
+            showMessage(e.getValidations());
+        }
+    }
+
+    public <%= name.capitalize %>FiltroDTO getFiltro() {
+        return filtro;
+    }
+
+    public void setFiltro(<%= name.capitalize %>FiltroDTO filtro) {
+        this.filtro = filtro;
+    }
+
+    public PageDataModel<<%= name.capitalize %>DTO> get<%= name.capitalize %>s() {
+        return <%= name %>s;
+    }
+
+    public void set<%= name.capitalize %>s(PageDataModel<<%= name.capitalize %>DTO> <%= name %>s) {
+        this.<%= name %>s = <%= name %>s;
+    }
+
+    public <%= name.capitalize %>Service get<%= name.capitalize %>Service() {
+        return <%= name %>Service;
+    }
+
+    public void set<%= name.capitalize %>Service(<%= name.capitalize %>Service <%= name %>Service) {
+        this.<%= name %>Service = <%= name %>Service;
+    }
+
+}

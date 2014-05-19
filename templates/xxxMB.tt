@@ -1,0 +1,88 @@
+package br.com.aliz.<%= name %>.mb;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+
+import br.com.aliz.organizacao.dto.<%= name.capitalize %>DTO;
+import br.com.aliz.organizacao.service.<%= name.capitalize %>Service;
+import br.com.aliz.util.mb.AbstractMB;
+import br.com.jexperts.exception.ValidationException;
+import br.com.jexperts.jsf.util.FacesUtils;
+import br.com.jexperts.message.Message;
+
+/**
+ * MB de <%= name.capitalize %>.
+ */
+@ViewScoped
+@ManagedBean
+public class <%= name.capitalize %>MB extends AbstractMB {
+
+    private static final long serialVersionUID = 1L;
+    
+    @ManagedProperty(value = "#{<%= name %>Service}")
+    private <%= name.capitalize %>Service <%= name %>Service;
+
+    private <%= name.capitalize %>DTO <%= name %>; 
+    
+    
+    /**
+     * Init do MB
+     */
+    @PostConstruct
+    public void init() {
+        Long id<%= name.capitalize %> = FacesUtils.getLongRequestParameter("id<%= name.capitalize %>");
+        
+        if(id<%= name.capitalize %> != null) {
+            <%= name %> = <%= name %>Service.get<%= name.capitalize %>(id<%= name.capitalize %>);
+        } else {
+            <%= name %> = new <%= name.capitalize %>DTO();
+        }
+    }
+    
+    /**
+     * Ação de salvar.
+     * 
+     * @return O redirecionamento.
+     */
+    public String salvar() {
+        try {
+            set<%= name.capitalize %>(<%= name %>Service.salvar(<%= name %>));
+            if (<%= name %>.getId() != null) {
+                showMessage(new Message("<%= name %>.mensagem.editar.sucesso"));
+            } else {
+                showMessage(new Message("<%= name %>.mensagem.nova.sucesso"));
+            }
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+            return "<%= name %>-listagem.html?faces-redirect=true";
+        } catch (ValidationException e) {
+            showMessage(e.getValidations());
+        } catch (IOException | URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+
+        return null;
+    }
+    
+    public String getTitulo() {
+        return <%= name %>.getId() == null ? "<%= name %>.novo.label" : "<%= name %>.editar.label";
+    }
+
+    public void set<%= name.capitalize %>Service(<%= name.capitalize %>Service <%= name %>Service) {
+        this.<%= name %>Service = <%= name %>Service;
+    }
+
+    public <%= name.capitalize %>DTO get<%= name.capitalize %>() {
+        return <%= name %>;
+    }
+
+    public void set<%= name.capitalize %>(<%= name.capitalize %>DTO <%= name %>) {
+        this.<%= name %> = <%= name %>;
+    }
+
+}

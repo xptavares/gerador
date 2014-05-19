@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:j="http://www.jexperts.com.br/jsf"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<p:dialog header="#{messages['<%= name %>.filtro.titulo']}"
+		id="modalFiltro<%= name.capitalize %>" widgetVar="filtro<%= name.capitalize %>s" modal="true"
+		height="auto" width="600">
+
+		<form class="form-horizontal" id="formFiltrar<%= name.capitalize %>">
+
+			<div class="container-modal">
+
+				<div class="control-group">
+					<div class="controls">
+						<label class="" for="titulo">#{messages['<%= name %>.label.<%= name %>']}</label>
+						<h:inputText id="titulo"
+							value="#{<%= name %>ListagemMB.filtro.nome}" class="input_text" />
+					</div>
+				</div>
+				
+			</div>
+			<div class="control-group action-bar">
+				<div class="controls">
+					<p:commandButton value="#{i18n['filtrar']}"
+						styleClass="btn-success" id="filtrar"
+						update=":formListagem:datatable<%= name.capitalize %>s, :panelFiltros"
+						onsuccess="wdgtDatatable<%= name.capitalize %>s.paginator.setPage(0); filtro<%= name.capitalize %>s.hide();" />
+				</div>
+			</div>
+		</form>
+
+	</p:dialog>
+</ui:composition>

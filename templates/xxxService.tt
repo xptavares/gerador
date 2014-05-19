@@ -1,0 +1,41 @@
+package br.com.aliz.organizacao.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import br.com.aliz.organizacao.<%= name.capitalize %>;
+import br.com.aliz.organizacao.business.<%= name.capitalize %>Business;
+import br.com.aliz.organizacao.dto.<%= name.capitalize %>DTO;
+import br.com.aliz.organizacao.dto.<%= name.capitalize %>FiltroDTO;
+import br.com.aliz.translator.<%= name.capitalize %>Translator;
+import br.com.jexperts.dto.ResponseObject;
+import br.com.jexperts.exception.ValidationException;
+
+@Service
+@Transactional
+public class <%= name.capitalize %>Service {
+    
+    @Autowired
+    private <%= name.capitalize %>Business <%= name %>Business;
+    
+    public ResponseObject<<%= name.capitalize %>DTO> get<%= name.capitalize %>s(<%= name.capitalize %>FiltroDTO filtro) {
+        List<<%= name.capitalize %>> <%= name %>s = <%= name %>Business.get<%= name.capitalize %>s(filtro);
+        
+        ResponseObject<<%= name.capitalize %>DTO> resposta = new ResponseObject<<%= name.capitalize %>DTO>();
+        
+        resposta.setTotal(<%= name %>Business.countGet<%= name.capitalize %>s(filtro));
+
+        resposta.setResponseList(new <%= name.capitalize %>Translator().toDto(<%= name %>s));
+
+        return resposta;
+    }
+    
+    @Transactional(readOnly = false)
+    public void remover(<%= name.capitalize %>DTO <%= name %>) throws ValidationException {
+        <%= name %>Business.remover(<%= name %>.getId());
+    }
+    
+}
