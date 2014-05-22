@@ -74,7 +74,7 @@ public class <%= name.capitalize %>MB extends AbstractMB {
     }
     
     public String getTitulo() {
-        return <%= name %>.getId() == null ? "<%= name %>.novo.label" : "<%= name %>.editar.label";
+        return getBreadcrumb();
     }
 
     public void set<%= name.capitalize %>Service(<%= name.capitalize %>Service <%= name %>Service) {

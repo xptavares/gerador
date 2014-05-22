@@ -45,6 +45,9 @@ public class <%= name.capitalize %>MB extends AbstractWizardMB {
      */
     @PostConstruct
     public void init() {
+
+        setSteps(STEP_1, STEP_2);
+
         Long id<%= name.capitalize %> = FacesUtils.getLongRequestParameter("id<%= name.capitalize %>");
         
         edicao = id<%= name.capitalize %> != null;
@@ -86,7 +89,7 @@ public class <%= name.capitalize %>MB extends AbstractWizardMB {
     }
     
     public String getTitulo() {
-        return <%= name %>.getId() == null ? "<%= name %>.novo.label" : "<%= name %>.editar.label";
+        return getBreadcrumb();
     }
 
     public void set<%= name.capitalize %>Service(<%= name.capitalize %>Service <%= name %>Service) {

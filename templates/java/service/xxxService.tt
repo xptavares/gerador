@@ -50,18 +50,20 @@ public class <%= name.capitalize %>Service {
         return (<%= name.capitalize %>DTO) Translators.toDto(result);
     }
 
-    /**
-     * Método responsável por validar o passo 1 do {@link <%= name.capitalize %>}.
-     * 
-     * @param <%= name %>DTO o {@link <%= name.capitalize %>} a ser validado
-     * @throws ValidationException caso ocorra algum erro de validação
-     */
-    public void validaStep1(<%= name.capitalize %>DTO <%= name %>DTO) throws ValidationException {
-        <%= name.capitalize %>Translator tradutor = new <%= name.capitalize %>Translator();
+    @Transactional(readOnly = false)
+    public void remover(List<<%= name.capitalize %>DTO> <%= name %>s) throws ValidationException {
+        Collection<Message> validacoes = new ArrayList<>();
+        if (<%= name %>s.isEmpty()) {
+            validacoes.add(new Validation("<%= name %>.validacao.nenhum<%= name.capitalize %>Selecionado"));
+        }
 
-        <%= name.capitalize %> <%= name %> = tradutor.toEntity(<%= name %>DTO);
+        if (!validacoes.isEmpty()) {
+            throw new ValidationException(validacoes);
+        }
 
-        <%= name %>Business.validaStep1(<%= name %>);
+        for (<%= name.capitalize %>DTO p : <%= name %>s) {
+            <%= name %>Business.remover(p.getId());
+        }
     }
     
 }

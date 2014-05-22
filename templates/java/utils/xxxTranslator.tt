@@ -1,0 +1,48 @@
+package br.com.aliz.translator;
+
+import java.io.Serializable;
+import java.util.List;
+
+import br.com.aliz.organizacao.<%= name.capitalize %>;
+import br.com.aliz.organizacao.dto.<%= name.capitalize %>DTO;
+import br.com.jexperts.dto.SimpleDTO;
+import br.com.jexperts.translator.Translator;
+
+/**
+ * Apenas traduz para SimpleDTO. <br/>
+ * O fato de ser um tradutor de <%= name.capitalize %> para <%= name.capitalize %> foi proposital, pois até o momento só precisamos da tradução para SimpleDTO
+ */
+public class <%= name.capitalize %>Translator extends Translator<<%= name.capitalize %>, <%= name.capitalize %>DTO> {
+
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	protected <%= name.capitalize %> toEntity(<%= name.capitalize %>DTO source) {
+	    <%= name.capitalize %> <%= name %> = new <%= name.capitalize %>();
+	    <%= name %>.setId(source.getId());
+		return <%= name %>;
+	}
+
+	@Override
+	protected <%= name.capitalize %>DTO toDto(<%= name.capitalize %> source) {
+	    <%= name.capitalize %>DTO <%= name %> = new <%= name.capitalize %>DTO();
+        <%= name %>.setId(source.getId());
+		return <%= name %>;
+	}
+
+	@Override
+	protected SimpleDTO<Serializable, Serializable> toSimpleDto(<%= name.capitalize %> source) {
+
+		SimpleDTO<Serializable, Serializable> dto = new SimpleDTO<>();
+
+		dto.setValue(source.getId());
+		dto.setDescription(source.getNome());
+
+		return dto;
+	}
+	
+	@Override
+    public List<<%= name.capitalize %>DTO> toDto(List<<%= name.capitalize %>> source) {
+        return super.toDto(source);
+    }
+}

@@ -1,5 +1,7 @@
 package br.com.aliz.<%= name %>.mb;
 
+import java.util.Arrays;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -23,12 +25,14 @@ import br.com.jexperts.message.Message;
 public class <%= name.capitalize %>ListagemMB extends AbstractMB {
 
     private static final long serialVersionUID = 1L;
-    
+
     private <%= name.capitalize %>FiltroDTO filtro;
     private PageDataModel<<%= name.capitalize %>DTO> <%= name %>s;
-    
+
     @ManagedProperty(value = "#{<%= name %>Service}")
     private <%= name.capitalize %>Service <%= name %>Service;
+
+    private <%= name.capitalize %>DTO[] <%= name %>sSelecionados;
 
     /**
      * Init do MB
@@ -38,7 +42,7 @@ public class <%= name.capitalize %>ListagemMB extends AbstractMB {
         setFiltro(new <%= name.capitalize %>FiltroDTO());
         filtrar();
     }
-    
+
     /**
      * Método responsável por filtrar a tabela de clientes.
      */
@@ -56,10 +60,10 @@ public class <%= name.capitalize %>ListagemMB extends AbstractMB {
             }
         }));
     }
-    
+
     /**
      * Ação de remover <%= name %>.
-     * 
+     *
      * @param <%= name %> O <%= name %>.
      */
     public void remover(<%= name.capitalize %>DTO <%= name %>){
@@ -93,6 +97,30 @@ public class <%= name.capitalize %>ListagemMB extends AbstractMB {
 
     public void set<%= name.capitalize %>Service(<%= name.capitalize %>Service <%= name %>Service) {
         this.<%= name %>Service = <%= name %>Service;
+    }
+
+    public <%= name.capitalize %>DTO[] get<%= name.capitalize %>sSelecionados() {
+        return <%= name %>sSelecionados;
+    }
+
+    public void set<%= name.capitalize %>sSelecionados(<%= name.capitalize %>DTO[] <%= name %>sSelecionados) {
+        this.<%= name %>sSelecionados = <%= name %>sSelecionados;
+    }
+
+    /**
+     * Remove os <%= name %>s selecionados.
+     */
+    public void remover<%= name.capitalize %>sSelecionados() {
+        try {
+            <%= name %>Service.remover(Arrays.asList(<%= name %>sSelecionados));
+            showMessage(new Message("<%= name %>.mensagem.remover<%= name.capitalize %>sSucesso"));
+        } catch (ValidationException e) {
+            showMessage(e.getValidations());
+        }
+    }
+
+    public String getMensagemRemoverLote() {
+        return getString("<%= name %>.mensagem.confirmarRemover<%= name.capitalize %>s");
     }
 
 }

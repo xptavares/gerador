@@ -2,6 +2,8 @@ package br.com.aliz.organizacao.service;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,9 @@ import br.com.aliz.organizacao.dto.<%= name.capitalize %>DTO;
 import br.com.aliz.organizacao.dto.<%= name.capitalize %>FiltroDTO;
 import br.com.aliz.translator.<%= name.capitalize %>Translator;
 import br.com.jexperts.dto.ResponseObject;
+import br.com.jexperts.exception.Validation;
 import br.com.jexperts.exception.ValidationException;
+import br.com.jexperts.message.Message;
 import br.com.jexperts.translator.Translators;
 
 @Service
@@ -48,6 +52,36 @@ public class <%= name.capitalize %>Service {
     public <%= name.capitalize %>DTO salvar(<%= name.capitalize %>DTO <%= name %>) throws ValidationException, IOException, URISyntaxException {
         <%= name.capitalize %> result = <%= name %>Business.salvar((<%= name.capitalize %>) Translators.toEntity(<%= name %>));
         return (<%= name.capitalize %>DTO) Translators.toDto(result);
+    }
+
+    /**
+     * Método responsável por validar o passo 1 do {@link <%= name.capitalize %>}.
+     * 
+     * @param <%= name %>DTO o {@link <%= name.capitalize %>} a ser validado
+     * @throws ValidationException caso ocorra algum erro de validação
+     */
+    public void validaStep1(<%= name.capitalize %>DTO <%= name %>DTO) throws ValidationException {
+        <%= name.capitalize %>Translator tradutor = new <%= name.capitalize %>Translator();
+
+        <%= name.capitalize %> <%= name %> = tradutor.toEntity(<%= name %>DTO);
+
+        <%= name %>Business.validaStep1(<%= name %>);
+    }
+
+    @Transactional(readOnly = false)
+    public void remover(List<<%= name.capitalize %>DTO> <%= name %>s) throws ValidationException {
+        Collection<Message> validacoes = new ArrayList<>();
+        if (<%= name %>s.isEmpty()) {
+            validacoes.add(new Validation("<%= name %>.validacao.nenhum<%= name.capitalize %>Selecionado"));
+        }
+
+        if (!validacoes.isEmpty()) {
+            throw new ValidationException(validacoes);
+        }
+
+        for (<%= name.capitalize %>DTO p : <%= name %>s) {
+            <%= name %>Business.remover(p.getId());
+        }
     }
     
 }

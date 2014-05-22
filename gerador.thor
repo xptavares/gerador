@@ -10,56 +10,56 @@ class Gerador < Thor::Group
   end
 
   def create_xhtml_listagem
-    template('templates/xxx-listagem.tt', "gerados/xhtml/#{name}/#{name}-listagem.xhtml")
+    template('templates/xhtml/xxx-listagem.tt', "gerados/xhtml/#{name}/#{name}-listagem.xhtml")
   end
 
   def create_xhtml_cadastro
     if options[:wizard]
-      template('templates/xxx-cadastro-wizard.tt', "gerados/xhtml/#{name}/#{name}-cadastro.xhtml")
+      template('templates/xhtml/xxx-cadastro-wizard.tt', "gerados/xhtml/#{name}/#{name}-cadastro.xhtml")
     else 
-      template('templates/xxx-cadastro.tt', "gerados/xhtml/#{name}/#{name}-cadastro.xhtml")
+      template('templates/xhtml/xxx-cadastro.tt', "gerados/xhtml/#{name}/#{name}-cadastro.xhtml")
     end
   end
 
   def create_xhtml_filtro
-    template('templates/xxx-filtro.tt', "gerados/xhtml/#{name}/#{name}-filtro.xhtml")
+    template('templates/xhtml/xxx-filtro.tt', "gerados/xhtml/#{name}/#{name}-filtro.xhtml")
   end
 
   def create_service
     if options[:wizard]
-      template('templates/xxxWizardService.tt', "gerados/java/#{name}/service/#{name.capitalize}Service.java")
+      template('templates/java/service/xxxWizardService.tt', "gerados/java/#{name}/service/#{name.capitalize}Service.java")
     else 
-      template('templates/xxxService.tt', "gerados/java/#{name}/service/#{name.capitalize}Service.java")
+      template('templates/java/service/xxxService.tt', "gerados/java/#{name}/service/#{name.capitalize}Service.java")
     end
   end
 
   def create_business
     if options[:wizard]
-      template('templates/xxxWizardBusiness.tt', "gerados/java/#{name}/business/#{name.capitalize}Business.java")
+      template('templates/java/business/xxxWizardBusiness.tt', "gerados/java/#{name}/business/#{name.capitalize}Business.java")
     else 
-      template('templates/xxxBusiness.tt', "gerados/java/#{name}/business/#{name.capitalize}Business.java")
+      template('templates/java/business/xxxBusiness.tt', "gerados/java/#{name}/business/#{name.capitalize}Business.java")
     end
     
   end
 
   def create_mb_listagem
-    template('templates/xxxListagemMB.tt', "gerados/java/#{name}/mb/#{name.capitalize}Listagem.java")
+    template('templates/java/mb/xxxListagemMB.tt', "gerados/java/#{name}/mb/#{name.capitalize}Listagem.java")
   end
 
   def create_mb
     if options[:wizard]
-      template('templates/xxxWizardMB.tt', "gerados/java/#{name}/mb/#{name.capitalize}MB.java")
+      template('templates/java/mb/xxxWizardMB.tt', "gerados/java/#{name}/mb/#{name.capitalize}MB.java")
     else 
-      template('templates/xxxMB.tt', "gerados/java/#{name}/mb/#{name.capitalize}MB.java")
+      template('templates/java/mb/xxxMB.tt', "gerados/java/#{name}/mb/#{name.capitalize}MB.java")
     end
   end
 
   def create_validator
-    template('templates/xxxValidator.tt', "gerados/java/#{name}/mb/#{name.capitalize}Validator.java")
+    template('templates/java/utils/xxxValidator.tt', "gerados/java/#{name}/utils/#{name.capitalize}Validator.java")
   end
 
   def create_translator
-    ##TODO
+    template('templates/java/utils/xxxTranslator.tt', "gerados/java/#{name}/utils/#{name.capitalize}Translator.java")
   end
 
 end

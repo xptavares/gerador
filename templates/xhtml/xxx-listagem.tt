@@ -7,9 +7,9 @@
 	xmlns:j="http://www.jexperts.com.br/jsf"
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	template="/template/layout.xhtml">
-	
+
 	<ui:define name="content">
-	
+
 	<ul class="breadcrumb">
 		<li><a href="#{request.contextPath}/pages/home.html"> <i
 				class="icon-home"></i></a><span class="divider">/</span></li>
@@ -19,7 +19,7 @@
 		</li>
 		<li class="active">#{msg['menu.<%= name %>']}</li>
 	</ul>
-	
+
 	<div class="row margin-left-zero">
 
 			<div class="row margin-left-zero">
@@ -76,12 +76,13 @@
 		</div>
 
 		<br />
-		
+
 		<h:form id="formListagem">
-		
+
 			<p:dataTable id="datatable<%= name.capitalize %>s" styleClass="datatable"
 				rowKey="#{<%= name %>}"
 				rowsPerPageTemplate="#{<%= name %>ListagemMB.getRowsPerPageTemplate(<%= name %>ListagemMB.<%= name %>s)}"
+				selection="#{<%= name %>ListagemMB.<%= name %>sSelecionados}"
 				value="#{<%= name %>ListagemMB.<%= name %>s}" var="<%= name %>" paginator="true"
 				rows="10" widgetVar="wdgtDatatable<%= name.capitalize %>s"
 				paginatorTemplate="{CurrentPageReport} {PreviousPageLink} {PageLinks} {NextPageLink} {RowsPerPageDropdown}"
@@ -89,6 +90,8 @@
 				emptyMessage="#{i18n['mensagem.nenhumRegistroEncontrado']}"
 				currentPageReportTemplate="{startRecord} - {endRecord} #{msg['label.de']} #{<%= name %>ListagemMB.<%= name %>s.rowCount}"
 				lazy="true">
+
+				<p:column selectionMode="multiple" style="width:18px" />
 
 				<p:column headerText="#{messages['<%= name %>.label.<%= name %>']}">
 					<h:outputText value="#{<%= name %>.nome}" />
@@ -103,13 +106,21 @@
 						<p:menuitem id="remover"
 							value="#{messages['remover']}"
 							action="#{<%= name %>ListagemMB.remover(<%= name %>)}" ajax="true"
-							update="datatable<%= name.capitalize %>s" 
+							update="datatable<%= name.capitalize %>s"
 							onsuccess="wdgtDatatable<%= name.capitalize %>s.paginator.setPage(0);" />
 					</p:menuButton>
 
 				</p:column>
 
 			</p:dataTable>
+			<div class="btn-lote-footer-grid">
+				<p:menuButton value="#{i18n['label.acoesLote']}">
+					<p:menuitem value="#{messages['remover']}"
+						onclick="if(!confirm('#{<%= name %>ListagemMB.getMensagemRemoverLote()}')){return false;}"
+						action="#{<%= name %>ListagemMB.remover<%= name.capitalize %>sSelecionados()}"
+						update="datatable<%= name.capitalize %>s" />
+				</p:menuButton>
+			</div>
 		</h:form>
 		<ui:include src="<%= name %>-filtro.xhtml" />
 	</ui:define>
