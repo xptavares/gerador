@@ -1,0 +1,29 @@
+menu.area=<%= name.capitalize %>
+<%= name %>.label.areas=<%= name.capitalize %>s
+
+<%= name %>.tela.titulo=Listagem de <%= name %>s
+<%= name %>.filtro.titulo=Filtrar <%= name %>s
+
+<%= name %>.label.<%= name %>=<%= name.capitalize %>
+<%= name %>.label.<%= name %>s=<%= name.capitalize %>s
+<%= name %>.label.descricao=Descrição
+<%= name %>.label.evento.bloco=Evento / Bloco
+<%= name %>.label.descricao.evento.bloco=Descrição do Evento / Bloco
+
+<%= name %>.label.wizard.step1=<span>1</span>Cadastro de <%= name %>
+<%= name %>.label.wizard.step2=<span>2</span>Vincular ventos / blocos
+<%= name %>.label.finalizarCadastro<%= name.capitalize %>=Finalizar cadastro de <%= name %>
+
+<%= name %>.mensagem.desativadoSucesso=<%= name.capitalize %> desativodo com Sucesso!
+<%= name %>.mensagem.remover<%= name.capitalize %>sSucesso=<%= name.capitalize %> removido com sucesso!
+<%= name %>.mensagem.confirmarDesativar=Deseja realmente desativar o <%= name %> {0}?
+<%= name %>.mensagem.confirmarRemover<%= name.capitalize %>s=Deseja realmente remover os <%= name %> selecionados?
+<%= name %>.mensagem.editar.sucesso=<%= name.capitalize %> salvo com sucesso!
+<%= name %>.mensagem.nova.sucesso=<%= name.capitalize %> cadastrado com sucesso!
+<%= name %>.validacao.nenhum<%= name.capitalize %>Selecionado=Pelo menos um <%= name %> deve ser selecionado
+<%= name %>.mensagem.remover<%= name.capitalize %>Sucesso=<%= name.capitalize %> removido com sucesso!
+
+<%= name %>.validacao.<%= name %>VinculadoImpacto=Não é permitido excluir <%= name %> vinculados a impacto.
+
+<%= name %>.Situacao<%= name.capitalize %>.emCadastro=Em Cadastro
+<%= name %>.Situacao<%= name.capitalize %>.desativado=Desativado

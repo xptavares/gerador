@@ -1,0 +1,75 @@
+package br.com.aliz.<%= packege %>;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import br.com.jexperts.entity.IdentifiedEntity;
+
+/**
+ * <%= name %> desativação
+ */
+@Entity
+@Table(name = "<%= name %>_desativacao", schema = "<%= packege %>")
+public class <%= name.capitalize %>Desativacao extends IdentifiedEntity {
+
+    private static final long serialVersionUID = 1L;
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "<%= name %>_desativacao_seq")
+    @SequenceGenerator(name = "<%= name %>_desativacao_seq", schema = "<%= packege %>", sequenceName = "<%= packege %>.<%= name %>_desativacao_seq", allocationSize = 1)
+    @Column(name = "id_<%= name %>_desativacao")
+    private Long id;
+    
+    @OneToOne
+    @JoinColumn(name = "id_<%= name %>", unique = true)
+    private <%= name.capitalize %> <%= name %>;
+
+    @Column(name = "data", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date data;
+    
+    /**
+     * Construtor.
+     */
+    public <%= name.capitalize %>Desativacao(){
+        
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    public <%= name.capitalize %> get<%= name.capitalize %>() {
+        return <%= name %>;
+    }
+
+    public void set<%= name.capitalize %>(<%= name.capitalize %> <%= name %>) {
+        this.<%= name %> = <%= name %>;
+    }
+}

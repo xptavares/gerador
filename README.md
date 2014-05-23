@@ -8,7 +8,7 @@ Installation
 
 To Run
 ------------
-	thor gerador nome
+	thor gerador name packege 
 
 Parametros
 ------------

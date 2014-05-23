@@ -1,8 +1,9 @@
-package br.com.aliz.organizacao.business;
+package br.com.aliz.<%= packege %>.business;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -18,8 +19,10 @@ import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
-import br.com.aliz.organizacao.<%= name.capitalize %>;
-import br.com.aliz.organizacao.dto.<%= name.capitalize %>FiltroDTO;
+import br.com.aliz.<%= packege %>.<%= name.capitalize %>;
+import br.com.aliz.<%= packege %>.<%= name.capitalize %>Desativacao;
+import br.com.aliz.<%= packege %>.Situacao<%= name.capitalize %>;
+import br.com.aliz.<%= packege %>.dto.<%= name.capitalize %>FiltroDTO;
 import br.com.jexperts.control.annotation.RQ;
 import br.com.jexperts.exception.Validation;
 import br.com.jexperts.exception.ValidationException;
@@ -135,4 +138,24 @@ public class <%= name.capitalize %>Business {
         }
 
     }
+
+    /**
+     * 
+     * Método responsavel por desativar <%= name %>.
+     * 
+     * @param id<%= name.capitalize %> id do <%= name %>.
+     * @throws ValidationException
+     */
+    @RQ("ALIZ_002_2014:RQ0013")
+    @PreAuthorize("hasPermission(#id<%= name.capitalize %>, '<%= name.upcase %>.EDITAR')")
+    public void desativar(Long id<%= name.capitalize %>) throws ValidationException {
+        <%= name.capitalize %> <%= name %> = get<%= name.capitalize %>(id<%= name.capitalize %>);
+        <%= name %>.setSituacao<%= name.capitalize %>(Situacao<%= name.capitalize %>.DESATIVADO);
+        <%= name.capitalize %>Desativacao <%= name %>Desativacao = new <%= name.capitalize %>Desativacao();
+        <%= name %>Desativacao.set<%= name.capitalize %>(<%= name %>);
+        <%= name %>Desativacao.setData(new Date());
+        <%= name %>.setDesativacao(<%= name %>Desativacao);
+        em.merge(<%= name %>);
+    }
+    
 }

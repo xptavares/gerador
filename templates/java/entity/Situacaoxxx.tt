@@ -1,0 +1,18 @@
+package br.com.aliz.<%= packege %>;
+
+public enum Situacao<%= name.capitalize %> {
+    
+    EM_CADASTRO("<%= name %>.Situacao<%= name.capitalize %>.emCadastro"),
+    DESATIVADO("<%= name %>.Situacao<%= name.capitalize %>.desativado");
+
+    private String nome;
+
+    private Situacao<%= name.capitalize %>(String nome) {
+        this.nome = nome;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+    
+}

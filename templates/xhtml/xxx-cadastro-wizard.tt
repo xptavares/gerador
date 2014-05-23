@@ -90,8 +90,7 @@
 					style="float:right;" id="btnFinalizarCadastro<%= name.capitalize %>"
 					value="#{<%= name %>Messages['<%= name %>.label.finalizarCadastro<%= name.capitalize %>']}"
 					styleClass="btn-success" action="#{<%= name %>MB.salvar()}"
-					update="formCadastro<%= name.capitalize %>" ajax="true"
-					onclick="if (#{<%= name %>MB.mudouPacote()}) { if (!confirm('#{<%= name %>MB.getMensagemTrocaPacote()}')){return false;} }" />
+					update="formCadastro<%= name.capitalize %>" ajax="true" />
 			</h:panelGroup>
 
 			<p:commandButton value="#{i18n['cancelar']}" id="cancelar"

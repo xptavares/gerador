@@ -108,6 +108,12 @@
 							action="#{<%= name %>ListagemMB.remover(<%= name %>)}" ajax="true"
 							update="datatable<%= name.capitalize %>s"
 							onsuccess="wdgtDatatable<%= name.capitalize %>s.paginator.setPage(0);" />
+						<p:menuitem id="desativar"
+							value="#{messages['desativar']}"
+							action="#{<%= name %>ListagemMB.desativar(<%= name %>)}" ajax="true"
+							update="datatable<%= name.capitalize %>s" 
+							onclick="if(!confirm('#{<%= name %>ListagemMB.getMensagemDesativar(<%= name %>)}')){return false;}"
+							onsuccess="wdgtDatatable<%= name.capitalize %>s.paginator.setPage(0);" />
 					</p:menuButton>
 
 				</p:column>

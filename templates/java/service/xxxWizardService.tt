@@ -1,4 +1,4 @@
-package br.com.aliz.organizacao.service;
+package br.com.aliz.<%= packege %>.service;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -10,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.aliz.organizacao.<%= name.capitalize %>;
-import br.com.aliz.organizacao.business.<%= name.capitalize %>Business;
-import br.com.aliz.organizacao.dto.<%= name.capitalize %>DTO;
-import br.com.aliz.organizacao.dto.<%= name.capitalize %>FiltroDTO;
+import br.com.aliz.<%= packege %>.<%= name.capitalize %>;
+import br.com.aliz.<%= packege %>.business.<%= name.capitalize %>Business;
+import br.com.aliz.<%= packege %>.dto.<%= name.capitalize %>DTO;
+import br.com.aliz.<%= packege %>.dto.<%= name.capitalize %>FiltroDTO;
 import br.com.aliz.translator.<%= name.capitalize %>Translator;
 import br.com.jexperts.dto.ResponseObject;
 import br.com.jexperts.exception.Validation;
@@ -82,6 +82,12 @@ public class <%= name.capitalize %>Service {
         for (<%= name.capitalize %>DTO p : <%= name %>s) {
             <%= name %>Business.remover(p.getId());
         }
+    }
+
+    @RQ("ALIZ_002_2014:RQ0013")
+    @Transactional(readOnly = false)
+    public void desativar(<%= name.capitalize %>DTO <%= name %>) throws ValidationException {
+        <%= name %>Business.desativar(<%= name %>.getId());
     }
     
 }

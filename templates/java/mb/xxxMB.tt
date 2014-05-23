@@ -9,8 +9,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import br.com.aliz.organizacao.dto.<%= name.capitalize %>DTO;
-import br.com.aliz.organizacao.service.<%= name.capitalize %>Service;
+import br.com.aliz.<%= packege %>.dto.<%= name.capitalize %>DTO;
+import br.com.aliz.<%= packege %>.service.<%= name.capitalize %>Service;
 import br.com.aliz.util.mb.AbstractMB;
 import br.com.jexperts.exception.ValidationException;
 import br.com.jexperts.jsf.util.FacesUtils;

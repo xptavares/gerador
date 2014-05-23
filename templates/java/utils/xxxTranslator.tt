@@ -17,7 +17,7 @@ public class <%= name.capitalize %>Translator extends Translator<<%= name.capita
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected <%= name.capitalize %> toEntity(<%= name.capitalize %>DTO source) {
+	public <%= name.capitalize %> toEntity(<%= name.capitalize %>DTO source) {
 	    <%= name.capitalize %> <%= name %> = new <%= name.capitalize %>();
 	    <%= name %>.setId(source.getId());
 		return <%= name %>;

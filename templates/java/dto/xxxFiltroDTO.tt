@@ -1,0 +1,50 @@
+package br.com.aliz.<%= packege %>.dto;
+
+import java.lang.reflect.Field;
+
+import br.com.aliz.util.Filterable;
+import br.com.jexperts.dto.RequestObject;
+import br.com.jexperts.util.StringUtils;
+
+public class <%= name.capitalize %>FiltroDTO extends RequestObject implements Filterable {
+
+private static final long serialVersionUID = 1L;
+    
+    private String nome;
+    
+    public <%= name.capitalize %>FiltroDTO() {
+        super(0, 10);
+    }
+    
+    public String getNome() {
+        return nome;
+    }
+
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return StringUtils.isBlank(getNome());
+    }
+
+    @Override
+    public void setNull(String attribute) {
+        Field f;
+        try {
+            f = this.getClass().getDeclaredField(attribute);
+            f.setAccessible(true);
+            f.set(this, null);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+}
