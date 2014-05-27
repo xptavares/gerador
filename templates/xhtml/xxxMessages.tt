@@ -11,10 +11,10 @@ menu.area=<%= name.capitalize %>
 <%= name %>.label.descricao.evento.bloco=Descrição do Evento / Bloco
 
 <%= name %>.label.wizard.step1=<span>1</span>Cadastro de <%= name %>
-<%= name %>.label.wizard.step2=<span>2</span>Vincular ventos / blocos
+<%= name %>.label.wizard.step2=<span>2</span>Vincular eventos / blocos
 <%= name %>.label.finalizarCadastro<%= name.capitalize %>=Finalizar cadastro de <%= name %>
 
-<%= name %>.mensagem.desativadoSucesso=<%= name.capitalize %> desativodo com Sucesso!
+<%= name %>.mensagem.desativadoSucesso=<%= name.capitalize %> desativado com Sucesso!
 <%= name %>.mensagem.remover<%= name.capitalize %>sSucesso=<%= name.capitalize %> removido com sucesso!
 <%= name %>.mensagem.confirmarDesativar=Deseja realmente desativar o <%= name %> {0}?
 <%= name %>.mensagem.confirmarRemover<%= name.capitalize %>s=Deseja realmente remover os <%= name %> selecionados?

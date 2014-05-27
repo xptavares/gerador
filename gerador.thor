@@ -56,7 +56,7 @@ class Gerador < Thor::Group
   end
 
   def create_validator
-    template('templates/java/utils/xxxValidator.tt', "gerados/#{name}/java/utils/#{name.capitalize}Validator.java")
+    template('templates/java/mb/xxxValidator.tt', "gerados/#{name}/java/mb/#{name.capitalize}Validator.java")
   end
 
   def create_translator
