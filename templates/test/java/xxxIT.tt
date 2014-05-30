@@ -1,0 +1,15 @@
+package br.com.aliz.<%= name %>;
+
+import org.junit.runner.RunWith;
+
+import br.com.aliz.util.CucumberSelenium;
+import cucumber.api.CucumberOptions;
+
+/**
+ * IT dos cenários de plano de <%= name %>.
+ */
+@RunWith(CucumberSelenium.class)
+@CucumberOptions(tags = "@<%= name %>")
+public class <%= name.capitalize %>IT {
+
+}

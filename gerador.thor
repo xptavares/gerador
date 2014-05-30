@@ -3,7 +3,7 @@ class Gerador < Thor::Group
 
   # Define arguments and options
   argument :name
-  argument :packege
+  argument :packege, :default => false 
   class_option :wizard, :default => false
 
   def self.source_root
@@ -77,6 +77,13 @@ class Gerador < Thor::Group
 
   def create_entity_situacao_enum
     template('templates/java/entity/Situacaoxxx.tt', "gerados/#{name}/java/entity/Situacao#{name.capitalize}.java")
+  end
+
+  def create_test
+    template('templates/test/feature/xxx.feature.tt', "gerados/#{name}/test/feature/#{name}.feature")
+    template('templates/test/java/xxxIT.tt', "gerados/#{name}/test/java/#{name}ITs.java")
+    template('templates/test/java/xxxStep.tt', "gerados/#{name}/test/java/#{name}Step.java")
+    template('templates/test/java/xxxUser.tt', "gerados/#{name}/test/java/#{name}User.java")
   end
 
 end

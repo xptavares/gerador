@@ -1,0 +1,12 @@
+package br.com.aliz.<%= name %>;
+
+/**
+ * Casos de uso de <%= name %>.
+ */
+public final class <%= name.capitalize %>User {
+
+    private <%= name.capitalize %>User() {
+
+    }
+
+}

@@ -1,0 +1,9 @@
+#language: pt
+@processo
+Funcionalidade:
+
+  Cenario: 
+    Dado a lista de processos
+    Quando preencher o filtro de processo
+    Entao listar os processos cadastrados de acordo com o filtro ordenado pelo nome do processo.
+    
