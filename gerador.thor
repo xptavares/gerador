@@ -81,9 +81,9 @@ class Gerador < Thor::Group
 
   def create_test
     template('templates/test/feature/xxx.feature.tt', "gerados/#{name}/test/feature/#{name}.feature")
-    template('templates/test/java/xxxIT.tt', "gerados/#{name}/test/java/#{name}ITs.java")
-    template('templates/test/java/xxxStep.tt', "gerados/#{name}/test/java/#{name}Step.java")
-    template('templates/test/java/xxxUser.tt', "gerados/#{name}/test/java/#{name}User.java")
+    template('templates/test/java/xxxIT.tt', "gerados/#{name}/test/java/#{name.capitalize}IT.java")
+    template('templates/test/java/xxxStep.tt', "gerados/#{name}/test/java/#{name.capitalize}Step.java")
+    template('templates/test/java/xxxUser.tt', "gerados/#{name}/test/java/#{name.capitalize}User.java")
   end
 
 end

@@ -1,5 +1,28 @@
 package br.com.aliz.<%= name %>;
 
+import cucumber.api.PendingException;
+import cucumber.api.java.pt.Dado;
+import cucumber.api.java.pt.Entao;
+import cucumber.api.java.pt.Quando;
+
 public class <%= name.capitalize %>Step {
+
+	@Dado("^a lista de <%= name %>s$")
+	public void a_lista_de_<%= name %>s() throws Throwable {
+	    // Express the Regexp above with the code you wish you had
+	    throw new PendingException();
+	}
+
+	@Quando("^preencher o filtro de <%= name %>$")
+	public void preencher_o_filtro_de_<%= name %>() throws Throwable {
+	    // Express the Regexp above with the code you wish you had
+	    throw new PendingException();
+	}
+
+	@Entao("^listar os <%= name %>s cadastrados de acordo com o filtro ordenado pelo nome do <%= name %>.$")
+	public void listar_os_<%= name %>s_cadastrados_de_acordo_com_o_filtro_ordenado_pelo_nome_do_<%= name %>() throws Throwable {
+	    // Express the Regexp above with the code you wish you had
+	    throw new PendingException();
+	}
 
 }
